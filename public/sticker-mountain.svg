@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300">
+<path d="M12 250L135 30L228 173L281 64L408 250Z" fill="#3ce5ed" stroke="#24152e" stroke-width="14" stroke-linejoin="round"/>
+<path d="M135 30L93 110L135 88L170 105Z M281 64L245 131L280 111L315 130Z" fill="#fff" stroke="#24152e" stroke-width="5" stroke-linejoin="round"/>
+<path d="M12 250L408 250L395 288L27 288Z" fill="#faff36" stroke="#24152e" stroke-width="12"/>
+<path d="M163 145L190 163L209 134" stroke="#24152e" stroke-width="10" fill="none" stroke-linecap="round"/>
+<circle cx="186" cy="117" r="16" fill="#ff63c9" stroke="#24152e" stroke-width="7"/>
+<path d="M186 134L198 178L233 190M198 178L169 213M198 156L219 145" stroke="#24152e" stroke-width="10" fill="none" stroke-linecap="round"/>
+<path d="M209 134L233 62" stroke="#ed30a1" stroke-width="6" fill="none" stroke-dasharray="8 8"/>
+<path d="M230 64L250 58" stroke="#24152e" stroke-width="7"/>
+<text x="38" y="281" font-family="Impact,Arial" font-size="29" font-weight="900" fill="#17111d">ГОРА</text>
+</svg>

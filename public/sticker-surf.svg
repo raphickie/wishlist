@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 280">
+<path d="M16 210Q73 153 125 205Q182 255 247 187Q291 146 344 205L345 241Q296 190 246 245Q182 282 122 236Q81 204 21 255Z" fill="#34eef4" stroke="#24152e" stroke-width="11" stroke-linejoin="round"/>
+<path d="M62 214Q175 247 300 215" fill="none" stroke="#f638b1" stroke-width="13" stroke-linecap="round"/>
+<path d="M119 92L129 46L159 68L201 67L231 46L234 103Q257 184 175 194Q103 182 119 92Z" fill="#ffc96d" stroke="#24152e" stroke-width="10" stroke-linejoin="round"/>
+<rect x="137" y="116" width="33" height="17" rx="6" fill="#24152e"/><rect x="180" y="116" width="33" height="17" rx="6" fill="#24152e"/>
+<path d="M170 124L180 124" stroke="#24152e" stroke-width="6"/>
+<path d="M170 146L188 146L179 153Z" fill="#fa489c"/>
+<path d="M165 160Q180 176 194 160" fill="none" stroke="#24152e" stroke-width="6"/>
+<path d="M131 172L109 213M218 170L241 212" stroke="#24152e" stroke-width="14" stroke-linecap="round"/>
+<path d="M110 205Q176 189 240 205" fill="none" stroke="#faff30" stroke-width="6"/>
+<text x="38" y="63" font-family="Impact,Arial" font-weight="900" font-size="46" fill="#fb36aa" stroke="#24152e" stroke-width="2">SURF!</text>
+</svg>
