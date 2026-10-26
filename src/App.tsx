@@ -103,9 +103,6 @@ export default function App() {
       <header className="hero">
         <div className="hero-copy">
           <h1>ХОЧУ<span>!</span><br />НЕ МОГУ<span>!</span></h1>
-          <p className="hero-tagline">
-            Подарки, скалы, котята, ветер, океан и немного компьютерного позора.
-          </p>
           <div className="flashing-label">🐾 WISH.LIST.EXE ВЫПОЛНЯЕТСЯ 🐾</div>
           <p className="broadcast" aria-live="polite">{broadcasts[broadcast]}</p>
         </div>
