@@ -10,13 +10,15 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
+// Firebase's web app configuration is public and safe to embed in a browser bundle.
+// Database writes remain protected by the Firestore Security Rules.
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: 'AIzaSyDoapoCceN_cEQBzE6-EUAMtzntNEpETTM',
+  authDomain: 'wishlist-88734.firebaseapp.com',
+  projectId: 'wishlist-88734',
+  storageBucket: 'wishlist-88734.firebasestorage.app',
+  messagingSenderId: '1097503044400',
+  appId: '1:1097503044400:web:c173b286e23fd44390cef5',
 };
 
 export const firebaseEnabled = Boolean(
