@@ -10,11 +10,11 @@ const broadcasts = [
   'ВНИМАНИЕ: КОТЫ ЗАХВАТИЛИ ИНТЕРНЕТ',
   'СКАЛЫ ЖДУТ • РУКИ СТРАДАЮТ',
   'ВОЛНА ЕСТЬ — МОЗГОВ НЕТ',
-  'ЗАБРОНИРОВАЛ — МОЛОДЕЦ, НЕ ЗАБРОНИРОВАЛ — ТОЖЕ КОТ',
+  'КОМПЬЮТЕР СКАЗАЛ МЯУ • СОБАКИ В ШОКЕ',
 ];
 
 export default function App() {
-  const [filter, setFilter] = useState<Filter>('all');
+  const [filter, setFilter] = useState<Filter>('free');
   const [status, setStatus] = useState<Status>(firebaseEnabled ? 'loading' : 'demo');
   const [reservations, setReservations] = useState<Map<string, Reservation>>(new Map());
   const [myUid, setMyUid] = useState('');
@@ -95,11 +95,9 @@ export default function App() {
 
       <header className="hero">
         <div className="hero-copy">
-          <p className="overline">★ ОФИЦИАЛЬНО НЕЗАКОННЫЙ УРОВЕНЬ ДИЗАЙНА ★</p>
           <h1>ХОЧУ<span>!</span><br />НЕ МОГУ<span>!</span></h1>
           <p className="hero-tagline">
             Подарки, скалы, котята, ветер, океан и немного компьютерного позора.
-            Не дари одно и то же дважды: <strong>бронь настоящая.</strong>
           </p>
           <div className="flashing-label">🐾 WISH.LIST.EXE ВЫПОЛНЯЕТСЯ 🐾</div>
           <p className="broadcast" aria-live="polite">{broadcasts[broadcast]}</p>
@@ -129,14 +127,13 @@ export default function App() {
 
       {status === 'demo' && (
         <div className="system-note" role="status">
-          🚧 <strong>Пока демо.</strong> Подарки видно, а бронирование отключено, пока не настроен Firebase.
-          Инструкция — в README репозитория.
+          🚧 <strong>CATBASE пока не подключена.</strong> Настрой Firebase по README репозитория, чтобы кнопки заработали.
         </div>
       )}
 
       {status === 'error' && (
         <div className="system-note" role="alert">
-          🙀 Firestore недоступен. Не показываем якобы свободные подарки как достоверные.
+          🙀 CATBASE недоступна. Попробуй перезагрузить страницу.
         </div>
       )}
 
@@ -147,12 +144,12 @@ export default function App() {
           <div>
             <span className="glitchy-stars">✦ ✳ ✦</span>
             <h2>ЛУТБOКС<br /><span>ЖЕЛАНИЙ</span></h2>
-            <p>Жми на подарок. Если занято — плачь в пиксели.</p>
+            <p>Кот одобряет твой выбор. Наверное.</p>
           </div>
           <div className="filters" aria-label="Фильтр подарков">
-            <button aria-pressed={filter === 'all'} className={filter === 'all' ? 'chosen' : ''} onClick={() => setFilter('all')}>ВСЁ</button>
             <button aria-pressed={filter === 'free'} className={filter === 'free' ? 'chosen' : ''} onClick={() => setFilter('free')}>СВОБОДНО</button>
             <button aria-pressed={filter === 'booked'} className={filter === 'booked' ? 'chosen' : ''} onClick={() => setFilter('booked')}>ЗАНЯТО</button>
+            <button aria-pressed={filter === 'all'} className={filter === 'all' ? 'chosen' : ''} onClick={() => setFilter('all')}>ВСЁ</button>
           </div>
         </div>
 
