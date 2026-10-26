@@ -134,6 +134,7 @@ h1 span { color: var(--yellow); }
 .theme-компы { background: #effec4; }
 .theme-котики { background: #ffd3ea; }
 .theme-горы { background: #e0d1ff; }
+.theme-аптека { background: #dbffe4; }
 .gift-taken { background-image: repeating-linear-gradient(-35deg, transparent 0 18px, rgba(0,0,0,.045) 19px 29px); }
 .gift-topline { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; flex-wrap: wrap; }
 .gift-serial { font: 900 12px ui-monospace, monospace; color: #65466e; }
