@@ -68,7 +68,9 @@ export default function App() {
     try {
       const uid = await bookGift(id);
       setMyUid(uid);
-      setMessage('МЯУ! Подарок забронирован. Остальным — лапки 🐈');
+      setMessage(gifts.some((gift) => gift.id === id && gift.rsvp)
+        ? 'УРА! Отметка «я приду» сохранена 🎉'
+        : 'МЯУ! Подарок забронирован. Остальным — лапки 🐈');
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Не удалось забронировать');
     } finally {
@@ -82,7 +84,9 @@ export default function App() {
     setMessage('');
     try {
       await cancelBooking(id, uid);
-      setMessage('Подарок снова свободен. Кот доволен.');
+      setMessage(gifts.some((gift) => gift.id === id && gift.rsvp)
+        ? 'Отметку о приходе убрали 😿 Если планы изменятся — всегда можно нажать снова.'
+        : 'Подарок снова свободен. Кот доволен.');
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Не удалось снять бронь');
     } finally {
@@ -165,16 +169,16 @@ export default function App() {
             const disabled = pendingId !== null || status !== 'ready';
 
             return (
-              <article className={`gift-card theme-${gift.category} ${isBooked ? 'gift-taken' : ''}`} key={gift.id}>
+              <article className={`gift-card theme-${gift.category} ${gift.rsvp ? 'friend-card' : ''} ${isBooked ? 'gift-taken' : ''}`} key={gift.id}>
                 <div className="gift-topline">
                   <span className="gift-serial">LOOT #{String(index + 1).padStart(2, '0')}</span>
                   <span className="gift-category">{gift.category.toUpperCase()}</span>
                   {gift.noBooking && <span className="repeat-badge">∞ БЕЗ БРОНИ</span>}
                 </div>
                 {gift.image ? (
-                  <div className="gift-photo-wrap">
+                  <div className={`gift-photo-wrap ${gift.rsvp ? 'friend-photo-wrap' : ''}`}>
                     <img className="gift-photo" src={asset(gift.image)} alt={gift.imageAlt ?? gift.name} loading="lazy" />
-                    <span className="photo-stamp">ВОТ ЭТУ ВОЛНУ НА НОУТ 🤌</span>
+                    <span className="photo-stamp">{gift.rsvp ? 'ГЛАВНЫЙ ПОДАРОЧЕК 💖' : 'ВОТ ЭТУ ВОЛНУ НА НОУТ 🤌'}</span>
                   </div>
                 ) : (
                   <div className="gift-emoji" aria-hidden="true">{gift.emoji}</div>
@@ -192,12 +196,12 @@ export default function App() {
                     <div className="taken-hint">ЧЕМ БОЛЬШЕ — ТЕМ ЛУЧШЕ. ♾️</div>
                   </div>                ) : isBooked ? (
                   <div className="reservation-footer">
-                    <div className="reserved-stamp">⛔ УЖЕ ЗАБРОНИРОВАНО</div>
+                    <div className="reserved-stamp">{gift.rsvp ? '🎉 ПРИДЁТ НА ДР!' : '⛔ УЖЕ ЗАБРОНИРОВАНО'}</div>
                     {isMine ? (
                       <button className="cancel-button" disabled={disabled} onClick={() => unreserve(gift.id, reservation!.uid)}>
-                        {pendingId === gift.id ? 'ОТМЕНЯЕМ…' : 'ЭТО МОЯ БРОНЬ — ОТМЕНИТЬ'}
+                        {pendingId === gift.id ? 'ОТМЕНЯЕМ…' : gift.rsvp ? 'НЕ ПОЛУЧИТСЯ ПРИЙТИ 😿' : 'ЭТО МОЯ БРОНЬ — ОТМЕНИТЬ'}
                       </button>
-                    ) : <div className="taken-hint">Чужая добыча. Трогать лапками нельзя.</div>}
+                    ) : <div className="taken-hint">{gift.rsvp ? 'Уже подтвердил(а) участие! 💃' : 'Чужая добыча. Трогать лапками нельзя.'}</div>}
                   </div>
                 ) : (
                   <button
@@ -205,7 +209,7 @@ export default function App() {
                     disabled={disabled}
                     onClick={() => reserve(gift.id)}
                   >
-                    {pendingId === gift.id ? 'КОТ ДУМАЕТ…' : status === 'ready' ? 'ЗАБРОНИРОВАТЬ 🐾' : 'ЖДЁМ CATBASE…'}
+                    {pendingId === gift.id ? 'КОТ ДУМАЕТ…' : status === 'ready' ? (gift.rsvp ? 'Я ПРИДУ! 🎉' : 'ЗАБРОНИРОВАТЬ 🐾') : 'ЖДЁМ CATBASE…'}
                   </button>
                 )}
               </article>

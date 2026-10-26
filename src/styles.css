@@ -212,3 +212,15 @@ footer { margin: 30px 0 40px; background: #101014; color: #c8ff56; border: 5px r
 /* Unlimited gifts can be bought directly, without a Firebase reservation. */
 .repeat-badge { display: inline-block; background: #baff57; color: #211237; border: 2px solid #211237; padding: 5px 9px; font: 900 11px ui-monospace, monospace; transform: rotate(-3deg); }
 .repeat-stamp { background: #dfff69; border: 3px dashed #24152e; padding: 10px; font: 900 13px ui-monospace, monospace; text-align: center; margin-bottom: 10px; }
+
+/* First nine cards: photo portraits of the people who are the best gifts. */
+.theme-друзья { background: #ffe1f3; }
+.friend-card { border-color: #e51d92; box-shadow: 9px 10px 0 #24152e, 0 0 0 2px #ffe43d inset; }
+.friend-card .gift-category { background: #9d0759; }
+.friend-photo-wrap { margin-top: 15px; margin-bottom: 21px; transform: rotate(-1.5deg); }
+.friend-photo-wrap .gift-photo { height: 225px; object-fit: cover; object-position: center; }
+.friend-photo-wrap .photo-stamp { background: #ffe93b; }
+.friend-card .book-button { background: #faff36; }
+.friend-card .book-button:hover:not(:disabled) { background: #42f4e7; }
+.friend-card .reserved-stamp { color: #50ffed; }
+@media (max-width: 590px) { .friend-photo-wrap .gift-photo { height: 270px; } }

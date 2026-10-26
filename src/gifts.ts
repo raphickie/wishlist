@@ -3,16 +3,116 @@ export type Gift = {
   name: string;
   emoji: string;
   budget: string;
-  category: 'скалы' | 'кайт' | 'сёрф' | 'компы' | 'котики' | 'горы' | 'аптека' | 'чай' | 'орехи' | 'книги';
+  category: 'скалы' | 'кайт' | 'сёрф' | 'компы' | 'котики' | 'горы' | 'аптека' | 'чай' | 'орехи' | 'книги' | 'друзья';
   description: string;
   link?: string;
   image?: string;
   imageAlt?: string;
   photoReferenceUrl?: string;
   noBooking?: boolean;
+  rsvp?: boolean;
 };
 
 export const gifts: Gift[] = [
+  {
+    id: "friend-asya",
+    name: "Ася",
+    emoji: "💖",
+    budget: '',
+    category: 'друзья',
+    rsvp: true,
+    image: "images/friends/asya.webp",
+    imageAlt: "Фото Аси",
+    description: "Моя крашиха, моя любовь и главный подарочек вообще во всей вселенной. Очень хочу видеть тебя на дне рождения. Без тебя торт — просто еда, а праздник — просто дата в календаре.",
+  },
+  {
+    id: "friend-topor",
+    name: "Топор",
+    emoji: "🪓",
+    budget: '',
+    category: 'друзья',
+    rsvp: true,
+    image: "images/friends/topor.webp",
+    imageAlt: "Фото Топора",
+    description: "Топор, главный подарочек с самым угрожающим названием. Ничего не покупай — просто приходи на мой день рождения. Без тебя вечер будет подозрительно безопасным.",
+  },
+  {
+    id: "friend-ilyukhan",
+    name: "Илюхан",
+    emoji: "🤝",
+    budget: '',
+    category: 'друзья',
+    rsvp: true,
+    image: "images/friends/ilyukhan.webp",
+    imageAlt: "Фото Илюхана",
+    description: "Илюхан, я тебя заказываю на свой день рождения целиком, в одном экземпляре. Ты и есть подарочек. Очень хочу тебя видеть, а не просто читать буквы от тебя в чате.",
+  },
+  {
+    id: "friend-selivan",
+    name: "Селиван",
+    emoji: "⚡",
+    budget: '',
+    category: 'друзья',
+    rsvp: true,
+    image: "images/friends/selivan.webp",
+    imageAlt: "Фото Селивана",
+    description: "Селиван, обязательный артефакт праздничного инвентаря. Приходи, пожалуйста! Лучший подарок — это ты собственной персоной, желательно живой, весёлый и в хорошем настроении.",
+  },
+  {
+    id: "friend-nastya",
+    name: "Настя",
+    emoji: "🌸",
+    budget: '',
+    category: 'друзья',
+    rsvp: true,
+    image: "images/friends/nastya.webp",
+    imageAlt: "Фото Насти",
+    description: "Настя, ну какой тут ещё подарок, когда есть ты? Очень хочу видеть тебя на дне рождения. Просто приходи и увеличь коэффициент счастья в помещении.",
+  },
+  {
+    id: "friend-yura",
+    name: "Юра",
+    emoji: "🎉",
+    budget: '',
+    category: 'друзья',
+    rsvp: true,
+    image: "images/friends/yura.webp",
+    imageAlt: "Фото Юры",
+    description: "Юра, считаю твоё присутствие подарком категории «легендарный лут». Очень жду тебя на дне рождения. Без тебя градус безумия будет преступно низким.",
+  },
+  {
+    id: "friend-anya",
+    name: "Аня",
+    emoji: "💝",
+    budget: '',
+    category: 'друзья',
+    rsvp: true,
+    image: "images/friends/anya.webp",
+    imageAlt: "Фото Ани",
+    description: "Аня, ты сама мой главный подарочек, никаких бантов и подарочных пакетов не требуется. Очень хочу увидеть тебя на дне рождения, иначе коты на этом сайте расстроятся.",
+  },
+  {
+    id: "friend-anton",
+    name: "Антон",
+    emoji: "🪩",
+    budget: '',
+    category: 'друзья',
+    rsvp: true,
+    image: "images/friends/anton.webp",
+    imageAlt: "Фото Антона",
+    description: "Антон, ты в списке особо ценных подарков. Просто приходи на мой день рождения — этого достаточно, чтобы праздник стал заметно прекраснее и чуть менее адекватным.",
+  },
+  {
+    id: "friend-rita",
+    name: "Рита",
+    emoji: "✨",
+    budget: '',
+    category: 'друзья',
+    rsvp: true,
+    image: "images/friends/rita.webp",
+    imageAlt: "Фото Риты",
+    description: "Рита, самый правильный подарок — это ты, пришедшая на мой день рождения. Очень хочу тебя видеть! Приноси себя и настроение, всё остальное необязательно.",
+  },
   {
     id: 'macbook-surf-skin',
     name: 'Виниловая шкура для MacBook Pro 14″',
