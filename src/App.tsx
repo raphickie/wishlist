@@ -166,11 +166,18 @@ export default function App() {
                   <span className="gift-serial">LOOT #{String(index + 1).padStart(2, '0')}</span>
                   <span className="gift-category">{gift.category.toUpperCase()}</span>
                 </div>
-                <div className="gift-emoji" aria-hidden="true">{gift.emoji}</div>
+                {gift.image ? (
+                  <div className="gift-photo-wrap">
+                    <img className="gift-photo" src={asset(gift.image)} alt={gift.imageAlt ?? gift.name} loading="lazy" />
+                    <span className="photo-stamp">ВОТ ЭТУ ВОЛНУ НА НОУТ 🤌</span>
+                  </div>
+                ) : (
+                  <div className="gift-emoji" aria-hidden="true">{gift.emoji}</div>
+                )}
                 <h3>{gift.name}</h3>
                 <p className="gift-description">{gift.description}</p>
                 <div className="gift-bottom">
-                  <span className="budget">💸 {gift.budget}</span>
+                  {gift.budget && <span className="budget">💸 {gift.budget}</span>}
                   {gift.link && <a href={gift.link} target="_blank" rel="noopener noreferrer">ПОДРОБНЕЕ ↗</a>}
                 </div>
                 {isBooked ? (
