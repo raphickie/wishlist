@@ -3,42 +3,18 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /reservations/{giftId} {
-      // Reservations are public so everybody sees the same status.
       allow read: if true;
 
-      // Creation is atomic and each document's owner is the signed-in guest.
       allow create: if request.auth != null
         && request.resource.data.keys().hasOnly(['uid', 'createdAt'])
         && request.resource.data.keys().hasAll(['uid', 'createdAt'])
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.createdAt == request.time;
 
-      // No one can take over somebody else's reservation.
       allow update: if false;
 
-      // Only the guest who reserved can cancel.
       allow delete: if request.auth != null
         && resource.data.uid == request.auth.uid;
     }
-    // Each authenticated guest can reserve every repeatable gift once.
-    // Unlimited different guests; each booking stored as a separate document.
-    match /repeatReservations/{giftId}/guests/{guestUid} {
-      allow read: if true;
-
-      allow create: if giftId in ['tea-any-kind', 'nuts-any-kind', 'amazing-fiction-book']
-        && request.auth != null
-        && request.auth.uid == guestUid
-        && request.resource.data.keys().hasOnly(['uid', 'createdAt'])
-        && request.resource.data.keys().hasAll(['uid', 'createdAt'])
-        && request.resource.data.uid == guestUid
-        && request.resource.data.createdAt == request.time;
-
-      allow update: if false;
-
-      allow delete: if request.auth != null
-        && request.auth.uid == guestUid
-        && resource.data.uid == guestUid;
-    }
-
   }
 }

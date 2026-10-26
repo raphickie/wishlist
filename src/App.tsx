@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { bookGift, bookRepeatGift, cancelBooking, cancelRepeatBooking, firebaseEnabled, getMyUid, watchRepeatReservations, watchReservations, type Reservation } from './firebase';
+import { bookGift, cancelBooking, firebaseEnabled, getMyUid, watchReservations, type Reservation } from './firebase';
 import { gifts } from './gifts';
 
-const repeatableGiftIds = gifts.filter((gift) => gift.repeatable).map((gift) => gift.id);
 
 type Filter = 'all' | 'free' | 'booked';
 type Status = 'demo' | 'loading' | 'ready' | 'error';
@@ -19,9 +18,6 @@ export default function App() {
   const [filter, setFilter] = useState<Filter>('free');
   const [status, setStatus] = useState<Status>(firebaseEnabled ? 'loading' : 'demo');
   const [reservations, setReservations] = useState<Map<string, Reservation>>(new Map());
-  const [repeatReservations, setRepeatReservations] = useState<Map<string, Map<string, Reservation>>>(new Map());
-  const [repeatLoaded, setRepeatLoaded] = useState<Set<string>>(new Set());
-  const [repeatError, setRepeatError] = useState('');
   const [myUid, setMyUid] = useState('');
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [message, setMessage] = useState('');
@@ -52,44 +48,25 @@ export default function App() {
     return () => window.clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    if (!firebaseEnabled) return;
-    return watchRepeatReservations(
-      repeatableGiftIds,
-      (giftId, entries) => {
-        setRepeatReservations((previous) => new Map(previous).set(giftId, entries));
-        setRepeatLoaded((previous) => new Set(previous).add(giftId));
-      },
-      (giftId, error) => {
-        setRepeatError(`Не удалось получить брони для ${giftId}: ${error}. Опубликуйте новые Firestore Rules.`);
-      },
-    );
-  }, []);
-
-  const repeatReady = repeatLoaded.size === repeatableGiftIds.length && !repeatError;
-
-  // A repeatable gift never becomes unavailable, even when booked.
-  const availableCount = gifts.filter((gift) => gift.repeatable || !reservations.has(gift.id)).length;
-  const reservedCount = gifts.reduce((total, gift) => {
-    if (!gift.repeatable) return total + Number(reservations.has(gift.id));
-    return total + Number(reservations.has(gift.id)) + (repeatReservations.get(gift.id)?.size ?? 0);
-  }, 0);
+  // Gifts without booking stay visible to every guest, regardless of old reservations.
+  const reservedCount = gifts.filter((gift) => !gift.noBooking && reservations.has(gift.id)).length;
+  const availableCount = gifts.length - reservedCount;
 
   const visibleGifts = useMemo(() => {
     return gifts.filter((gift) => {
-      const hasAnyBooking = reservations.has(gift.id) || (repeatReservations.get(gift.id)?.size ?? 0) > 0;
-      if (filter === 'free') return Boolean(gift.repeatable) || !hasAnyBooking;
-      if (filter === 'booked') return hasAnyBooking;
+      if (gift.noBooking) return filter !== 'booked';
+      if (filter === 'free') return !reservations.has(gift.id);
+      if (filter === 'booked') return reservations.has(gift.id);
       return true;
     });
-  }, [filter, reservations, repeatReservations]);
+  }, [filter, reservations]);
 
-  async function reserve(id: string, repeatable = false) {
+  async function reserve(id: string) {
     if (status !== 'ready' || pendingId) return;
     setPendingId(id);
     setMessage('');
     try {
-      const uid = repeatable ? await bookRepeatGift(id) : await bookGift(id);
+      const uid = await bookGift(id);
       setMyUid(uid);
       setMessage('МЯУ! Подарок забронирован. Остальным — лапки 🐈');
     } catch (error) {
@@ -99,18 +76,13 @@ export default function App() {
     }
   }
 
-  async function unreserve(id: string, uid: string, repeatable = false, legacy = false) {
+  async function unreserve(id: string, uid: string) {
     if (status !== 'ready' || pendingId) return;
     setPendingId(id);
     setMessage('');
     try {
-      if (repeatable && !legacy) {
-        await cancelRepeatBooking(id);
-        setMessage('Твоя бронь снята. Другие поклонники чая, орехов и книг не пострадали.');
-      } else {
-        await cancelBooking(id, uid);
-        setMessage('Подарок снова свободен. Кот доволен.');
-      }
+      await cancelBooking(id, uid);
+      setMessage('Подарок снова свободен. Кот доволен.');
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Не удалось снять бронь');
     } finally {
@@ -168,7 +140,6 @@ export default function App() {
         </div>
       )}
 
-      {repeatError && <div className="system-note" role="alert">🙀 {repeatError}</div>}
 
       {message && <div className="toast-message" role="status">{message}</div>}
 
@@ -189,20 +160,16 @@ export default function App() {
         <div className="gift-grid">
           {visibleGifts.map((gift, index) => {
             const reservation = reservations.get(gift.id);
-            const isBooked = Boolean(reservation);
+            const isBooked = !gift.noBooking && Boolean(reservation);
             const isMine = Boolean(reservation && myUid && reservation.uid === myUid);
-            const repeatGuests = repeatReservations.get(gift.id);
-            const repeatCount = (repeatGuests?.size ?? 0) + Number(isBooked);
-            const repeatBookedByMe = Boolean(myUid && repeatGuests?.has(myUid));
-            const repeatAlreadyMine = isMine || repeatBookedByMe;
-            const disabled = pendingId !== null || status !== 'ready' || (Boolean(gift.repeatable) && !repeatReady);
+            const disabled = pendingId !== null || status !== 'ready';
 
             return (
               <article className={`gift-card theme-${gift.category} ${isBooked ? 'gift-taken' : ''}`} key={gift.id}>
                 <div className="gift-topline">
                   <span className="gift-serial">LOOT #{String(index + 1).padStart(2, '0')}</span>
                   <span className="gift-category">{gift.category.toUpperCase()}</span>
-                  {gift.repeatable && <span className="repeat-badge">∞ БЕЗЛИМИТ</span>}
+                  {gift.noBooking && <span className="repeat-badge">∞ БЕЗ БРОНИ</span>}
                 </div>
                 {gift.image ? (
                   <div className="gift-photo-wrap">
@@ -218,25 +185,11 @@ export default function App() {
                   {gift.budget && <span className="budget">💸 {gift.budget}</span>}
                   {gift.link && <a href={gift.link} target="_blank" rel="noopener noreferrer">ПОДРОБНЕЕ ↗</a>}
                 </div>
-                {gift.repeatable ? (
+                {gift.noBooking ? (
                   <div className="reservation-footer">
-                    <div className="repeat-stamp">♾ УЖЕ БРОНЕЙ: {repeatCount}. ЕЩЁ МОЖНО!</div>
-                    {!repeatReady && <small className="repeat-hint">{repeatError ? 'Нужны обновлённые правила Firestore.' : 'Загружаем счётчик…'}</small>}
-                    {repeatAlreadyMine ? (
-                      <button
-                        className="cancel-button"
-                        disabled={disabled}
-                        onClick={() => unreserve(gift.id, reservation?.uid ?? myUid, true, isMine)}
-                      >
-                        {pendingId === gift.id ? 'ОТМЕНЯЕМ…' : 'ЭТО МОЯ БРОНЬ — ОТМЕНИТЬ'}
-                      </button>
-                    ) : (
-                      <button className="book-button" disabled={disabled} onClick={() => reserve(gift.id, true)}>
-                        {pendingId === gift.id ? 'КОТ ДУМАЕТ…' : repeatReady ? 'ЗАБРОНИРОВАТЬ 🐾' : 'ЖДЁМ CATBASE…'}
-                      </button>
-                    )}
-                  </div>
-                ) : isBooked ? (
+                    <div className="repeat-stamp">😼 БРОНИРОВАТЬ НЕ НАДО. ПРОСТО ПОКУПАЙ И ДАРИ!</div>
+                    <div className="taken-hint">ЧЕМ БОЛЬШЕ — ТЕМ ЛУЧШЕ. ♾️</div>
+                  </div>                ) : isBooked ? (
                   <div className="reservation-footer">
                     <div className="reserved-stamp">⛔ УЖЕ ЗАБРОНИРОВАНО</div>
                     {isMine ? (
