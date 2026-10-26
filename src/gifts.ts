@@ -8,6 +8,7 @@ export type Gift = {
   link?: string;
   image?: string;
   imageAlt?: string;
+  photoReferenceUrl?: string;
   noBooking?: boolean;
 };
 
@@ -20,6 +21,7 @@ export const gifts: Gift[] = [
     category: 'сёрф',
     description: 'Хочу, чтобы ноут выглядел так, будто он только что вылез из океана. Сине-бирюзовая волна, сёрфинг, вайб. Идеал — фотка с огромной волной, которую я прислал. Если получится сделать наклейку с ней — экстаз уровня кота в коробке. Подойдёт и другая красивая наклейка под MacBook Pro 14″.',
     link: 'https://www.ozon.ru/product/vinilovoe-pokrytie-nakleyka-dlya-macbook-pro-14-m1-m4-kryshka-zadnyaya-chast-502006751/',
+    photoReferenceUrl: 'https://github.com/raphickie/wishlist/blob/master/public/images/surf-wave.webp',
   },
   {
     id: 'climbing-locking-carabiner',

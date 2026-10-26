@@ -184,6 +184,7 @@ export default function App() {
                 <div className="gift-bottom">
                   {gift.budget && <span className="budget">💸 {gift.budget}</span>}
                   {gift.link && <a href={gift.link} target="_blank" rel="noopener noreferrer">ПОДРОБНЕЕ ↗</a>}
+                  {gift.photoReferenceUrl && <a href={gift.photoReferenceUrl} target="_blank" rel="noopener noreferrer">🌊 ФОТО-РЕФЕРЕНС ↗</a>}
                 </div>
                 {gift.noBooking ? (
                   <div className="reservation-footer">
