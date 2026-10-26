@@ -7,6 +7,7 @@ export type Gift = {
   description: string;
   link?: string;
   image?: string;
+  imageAlt?: string;
 };
 
 export const gifts: Gift[] = [
