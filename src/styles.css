@@ -224,3 +224,5 @@ footer { margin: 30px 0 40px; background: #101014; color: #c8ff56; border: 5px r
 .friend-card .book-button:hover:not(:disabled) { background: #42f4e7; }
 .friend-card .reserved-stamp { color: #50ffed; }
 @media (max-width: 590px) { .friend-photo-wrap .gift-photo { height: 270px; } }
+
+.theme-свечи { background: #ffebc5; }
