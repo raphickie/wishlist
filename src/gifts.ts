@@ -141,7 +141,7 @@ export const gifts: Gift[] = [
     emoji: '👕',
     budget: 'Номинал — на твой выбор',
     category: 'одежда',
-    description: 'Чтобы я сам выбрал себе что-нибудь просторное и охрененное. Сертификат Ricewear — официальный взнос в фонд моего оверсайза.',
+    description: 'Мой внутренний шмоточник требует обновок. Сертификат Ricewear — и он сам выберет, во что меня завернуть.',
     link: 'https://ricewear.com/shop/certificates',
   },
   {
