@@ -3,7 +3,7 @@ export type Gift = {
   name: string;
   emoji: string;
   budget: string;
-  category: 'скалы' | 'кайт' | 'сёрф' | 'компы' | 'котики' | 'горы' | 'аптека' | 'чай' | 'орехи' | 'книги' | 'друзья' | 'музыка' | 'свечи';
+  category: 'скалы' | 'кайт' | 'сёрф' | 'компы' | 'котики' | 'горы' | 'аптека' | 'чай' | 'орехи' | 'книги' | 'друзья' | 'музыка' | 'свечи' | 'одежда';
   description: string;
   link?: string;
   image?: string;
@@ -134,6 +134,15 @@ export const gifts: Gift[] = [
     image: 'images/friends/nastya-2.webp',
     imageAlt: 'Фото Насти',
     description: 'Настя, лучший подарок — это ты на моём дне рождения! Очень тебя жду. Приходи, а то коэффициент прекрасности праздника будет неприлично низким.',
+  },
+  {
+    id: 'ricewear-gift-certificate',
+    name: 'Подарочный сертификат Ricewear',
+    emoji: '👕',
+    budget: 'Номинал — на твой выбор',
+    category: 'одежда',
+    description: 'Чтобы я сам выбрал себе что-нибудь просторное и охрененное. Сертификат Ricewear — официальный взнос в фонд моего оверсайза.',
+    link: 'https://ricewear.com/shop/certificates',
   },
   {
     id: 'macbook-surf-skin',
