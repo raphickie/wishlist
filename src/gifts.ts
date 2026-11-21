@@ -146,12 +146,12 @@ export const gifts: Gift[] = [
   },
   {
     id: 'nenaebnis-last-life-tshirt',
-    name: 'Футболка nenaebnis «Last Life»',
+    name: 'Футболка nenaebnis',
     emoji: '👕',
     budget: 'От 2 900 ₽',
     category: 'одежда',
-    description: 'Хочу эту футболку на скалодром. Когда на зацепе остался один палец, название особенно в тему. Размер лучше уточнить у меня перед заказом.',
-    link: 'https://nenaebnis.ru/product-rjhaebf',
+    description: 'Хочу футболку nenaebnis на скалодром. Мне нравится Last Life, но смело выбирай принт на свой вкус: Original, Lich, Medusa Black или любой другой из каталога. Размер лучше уточнить у меня перед заказом.',
+    link: 'https://nenaebnis.ru/',
   },
   {
     id: 'ricewear-gift-certificate',
