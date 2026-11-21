@@ -145,6 +145,15 @@ export const gifts: Gift[] = [
     link: 'https://ozon.ru/t/J50Yzgr',
   },
   {
+    id: 'nenaebnis-last-life-tshirt',
+    name: 'Футболка nenaebnis «Last Life»',
+    emoji: '👕',
+    budget: 'От 2 900 ₽',
+    category: 'одежда',
+    description: 'Хочу эту футболку на скалодром. Когда на зацепе остался один палец, название особенно в тему. Размер лучше уточнить у меня перед заказом.',
+    link: 'https://nenaebnis.ru/product-rjhaebf',
+  },
+  {
     id: 'ricewear-gift-certificate',
     name: 'Подарочный сертификат Ricewear',
     emoji: '👕',
